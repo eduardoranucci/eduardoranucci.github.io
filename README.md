@@ -1,3 +1,0 @@
-# eduardoranucci.github.io
-
-teste
