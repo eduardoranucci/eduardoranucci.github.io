@@ -16,8 +16,6 @@
 
         <a href="#home" class="logo">Eduardo <span>Ranucci</span></a>
 
-        <i class="bx bx-menu" id="menu-icon"></i>
-
         <nav class="navbar">
             <a href="#home" class="active">Home</a>
             <a href="#sobre">Sobre</a>
@@ -170,19 +168,19 @@
 
         <h2 class="heading">Entre em <span>Contato</span></h2>
 
-        <form action="#">
+        <form action="#" id="form-contato">
 
             <div class="input-box">
-                <input type="text" placeholder="Nome Completo">
-                <input type="email" placeholder="E-mail">
+                <input type="text" placeholder="Nome Completo" id="input-nome" required>
+                <input type="email" placeholder="E-mail" id="input-email" required>
             </div>
 
             <div class="input-box">
-                <input type="number" placeholder="Celular">
-                <input type="text" placeholder="Assunto">
+                <input type="tel" placeholder="Celular" id="input-celular" required>
+                <input type="text" placeholder="Assunto" id="input-assunto" required>
             </div>
 
-            <textarea cols="30" rows="10" placeholder="Sua Mensagem"></textarea>
+            <textarea cols="30" rows="10" placeholder="Sua Mensagem" id="input-mensagem" required></textarea>
             <input type="submit" value="Enviar" class="btn">
 
         </form>

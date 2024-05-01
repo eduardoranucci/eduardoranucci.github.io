@@ -1,7 +1,7 @@
-let menuIcon = document.querySelector('#menu-icon');
-let navbar = document.querySelector('.navbar');
-let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
+const menuIcon = document.querySelector('#menu-icon');
+const navbar = document.querySelector('.navbar');
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('header nav a');
 
 window.onscroll = () => {
 
@@ -12,7 +12,7 @@ window.onscroll = () => {
         let height = section.offsetHeight;
         let id = section.getAttribute('id');
 
-        if(top >= offset && top < offset + height) {
+        if (top >= offset && top < offset + height) {
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 document.querySelector('header nav a[href*=' + id + ' ]').classList.add('active');
@@ -21,7 +21,64 @@ window.onscroll = () => {
     })
 }
 
-menuIcon.onclick = () => {
-    menuIcon.classList.toggle('bx-x');
-    navbar.classList.toggle('active');
-}
+document.getElementById('form-contato').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('input-nome').value.trim()
+    const email = document.getElementById('input-email').value.trim()
+    const celular = document.getElementById('input-celular').value.trim()
+    const assunto = document.getElementById('input-assunto').value.trim()
+    const mensagem = document.getElementById('input-mensagem').value.trim()
+
+    if (nome == '') {
+        return alert('O nome não pode estar em branco.')
+    }
+    if (email == '') {
+        return alert('O e-mail não pode estar em branco.')
+    }
+    if (celular == '') {
+        return alert('O Celular não pode estar em branco.')
+    }
+    if (assunto == '') {
+        return alert('O Assunto não pode estar em branco.')
+    }
+    if (mensagem == '') {
+        return alert('A mensagem não pode estar em branco.')
+    }
+
+    const dadosMensagem = {
+        nome: nome,
+        email: email,
+        celular: celular,
+        assunto: assunto,
+        mensagem: mensagem,
+        destinatario: 'eduardoranucci@outlook.com',
+    };
+
+    const url = 'https://email-sender-flask.vercel.app';
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dadosMensagem)
+    };
+
+    fetch(url, options)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Erro ao enviar mensagem');
+            }
+        })
+        .then(data => {
+            alert('Mensagem enviada com sucesso!');
+            document.getElementById('form-contato').reset()
+        })
+        .catch(error => {
+            alert('Erro ao enviar mensagem');
+        });
+
+});
