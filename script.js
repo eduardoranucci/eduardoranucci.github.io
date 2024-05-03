@@ -24,6 +24,8 @@ window.onscroll = () => {
 document.getElementById('form-contato').addEventListener('submit', function (event) {
     event.preventDefault();
 
+    const loader = document.getElementById('div-loader')
+
     const nome = document.getElementById('input-nome').value.trim()
     const email = document.getElementById('input-email').value.trim()
     const celular = document.getElementById('input-celular').value.trim()
@@ -45,6 +47,8 @@ document.getElementById('form-contato').addEventListener('submit', function (eve
     if (mensagem == '') {
         return alert('A mensagem não pode estar em branco.')
     }
+
+    loader.style.display = 'flex'
 
     const dadosMensagem = {
         nome: nome,
@@ -74,11 +78,11 @@ document.getElementById('form-contato').addEventListener('submit', function (eve
             }
         })
         .then(data => {
-            alert('Mensagem enviada com sucesso!');
             document.getElementById('form-contato').reset()
+            loader.style.display = 'none'
+            alert('Mensagem enviada com sucesso!');
         })
         .catch(error => {
             alert('Erro ao enviar mensagem');
         });
-
 });
