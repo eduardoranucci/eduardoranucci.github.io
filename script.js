@@ -2,6 +2,7 @@ const menuIcon = document.querySelector('#menu-icon');
 const navbar = document.querySelector('.navbar');
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('header nav a');
+const divProjetos = document.querySelector('.projetos-container');
 
 window.onscroll = () => {
 
@@ -82,3 +83,53 @@ document.getElementById('form-contato').addEventListener('submit', function (eve
         });
 
 });
+
+function getGithubRepos() {
+
+    fetch('https://api.github.com/users/eduardoranucci/repos')
+        .then(response => response.json())
+        .then(repos => {           
+            repos.forEach(repo => {
+
+                const projeto = document.createElement('a')
+                projeto.setAttribute('href', repo.html_url)
+                projeto.setAttribute('target', '_blank')
+                divProjetos.appendChild(projeto)
+
+                const projetoBox = document.createElement('div')
+                projetoBox.setAttribute('class', 'projetos-box')
+                projeto.appendChild(projetoBox)
+
+                const projetoInfo = document.createElement('div')
+                projetoInfo.setAttribute('class', 'projetos-info')
+                projetoBox.appendChild(projetoInfo)
+
+                const tituloProjeto = document.createElement('h4')
+                tituloProjeto.innerText = repo.name
+                projetoInfo.appendChild(tituloProjeto)
+
+                const ulProjeto = document.createElement('ul')
+                projetoInfo.appendChild(ulProjeto)
+
+                const liLinguagem = document.createElement('li')
+                liLinguagem.innerText = 'Linguagem Principal: ' + repo.language
+                ulProjeto.appendChild(liLinguagem)
+
+                const liEstrelas = document.createElement('li')
+                liEstrelas.innerText = 'Stars: ' + repo.stargazers_count
+                ulProjeto.appendChild(liEstrelas)
+
+                const liForks = document.createElement('li')
+                liForks.innerText = 'Forks: ' + repo.forks_count
+                ulProjeto.appendChild(liForks)
+
+                const liAtualização = document.createElement('li')
+                liAtualização.innerText = 'Última atualização: ' + new Date(repo.updated_at).toLocaleDateString()
+                ulProjeto.appendChild(liAtualização)
+            });
+        })
+        .catch(erro => console.error(erro));
+
+}
+
+getGithubRepos()

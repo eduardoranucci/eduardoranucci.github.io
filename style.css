@@ -403,11 +403,15 @@ span {
     width: 100%;
 }
 
-.projetos-info p {
+.projetos-info li {
     font-size: 2rem;
     font-weight: 400;
     max-height: 100px;
     margin: auto;
+}
+
+ul {
+    list-style-type: none;
 }
 
 /* Contato */
